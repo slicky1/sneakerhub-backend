@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_065442) do
+ActiveRecord::Schema.define(version: 2021_08_09_131437) do
 
   create_table "brands", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.string "name"
+    t.integer "brands_id"
+    t.index ["brands_id"], name: "index_collections_on_brands_id"
   end
 
 end
