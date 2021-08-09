@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_131437) do
+ActiveRecord::Schema.define(version: 2021_08_09_150441) do
 
   create_table "brands", force: :cascade do |t|
     t.string "name"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 2021_08_09_131437) do
     t.string "name"
     t.integer "brands_id"
     t.index ["brands_id"], name: "index_collections_on_brands_id"
+  end
+
+  create_table "sneakers", force: :cascade do |t|
+    t.string "sneaker_name"
+    t.integer "sneaker_size"
+    t.integer "sneaker_price"
+    t.string "sneaker_color"
+    t.integer "collection_id"
+    t.integer "brand_id"
+    t.index ["brand_id"], name: "index_sneakers_on_brand_id"
+    t.index ["collection_id"], name: "index_sneakers_on_collection_id"
   end
 
 end
