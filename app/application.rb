@@ -34,10 +34,27 @@ class Application
     
     if req.path.match('/brand/') && req.get?
       id = req.path.split('/') [2]
+    begin
       brand = Brand.find(id)
       return [200, {'Content-Type' => 'application/json'},[brand.to_json]]
+    rescue
+      return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Not Found"}.to_json]]
     end
+  end
     #MODEL UPDATES ROUTES
+  if req.path.match('/brand/') && req.patch?
+    id =req.path.split('/') [2]
+    body = JSON.parse(req.body.read)
+  begin
+    brand = Brand.find(id)
+    brand.update(body)
+    return [202, {'Content-Type' => 'application/json'}, [brand.to_json]]
+  rescue
+    return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Could Not Update"}.to_json]]
+  end
+end
+    
+
 
     #MODEL DELETE ROUTES 
 # Test Route
