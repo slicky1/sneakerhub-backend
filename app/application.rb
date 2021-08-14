@@ -57,6 +57,17 @@ end
 
 
     #MODEL DELETE ROUTES 
+
+    if req.path.match('/brand/') && req.delete?
+      id = req.path.split('/')[2]
+      begin
+        brand = Brand.find(id)
+        brand.destroy
+        return [200, {'Content-Type' => 'application/json'}, [{message: "Brand Destroyed"}.to_json]]
+      rescue
+        return [404, {'Content-Type' => 'application/json'}, [{message: "Brand not found"}.to_json]]
+      end
+    end
 # Test Route
     if req.path.match(/test/) 
       return [200, { 'Content-Type' => 'application/json' }, [ {:message => "test response!"}.to_json ]]
