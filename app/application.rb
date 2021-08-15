@@ -124,7 +124,7 @@ end
   return [201, {'Content-Type' => 'application/json'}, [sneaker.to_json]]
 end
 
-#Show Collection
+#Show sNEAKERS
     
 if req.path.match('/sneaker/') && req.get?
   id = req.path.split('/') [2]
@@ -134,6 +134,19 @@ begin
 rescue
   return [404, {'Content-Type' => 'application/json'}, [{message: "Sneakers Not Found"}.to_json]]
 end
+end
+
+  #SNEAKER UPDATES ROUTES
+  if req.path.match('/sneaker/') && req.patch?
+    id =req.path.split('/') [2]
+    body = JSON.parse(req.body.read)
+  begin
+    sneaker = Sneaker.find(id)
+    sneaker.update(body)
+    return [202, {'Content-Type' => 'application/json'}, [sneaker.to_json]]
+  rescue
+    return [404, {'Content-Type' => 'application/json'}, [{message: "Sneakers Could Not Update"}.to_json]]
+  end
 end
 
 
