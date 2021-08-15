@@ -114,6 +114,10 @@ end
   end
 end
 
+ #MODEL CREATION ROUTES FOR COLLECTION
+
+ 
+
 # Test Route
     if req.path.match(/test/) 
       return [200, { 'Content-Type' => 'application/json' }, [ {:message => "test response!"}.to_json ]]
