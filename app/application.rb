@@ -16,7 +16,7 @@ class Application
       return [200, {'Content-Type' => 'application/json'}, [Collection.all.to_json]]
     end
 # Sneaker Route
-    if req.path == ('/sneakers') && req.get?
+    if req.path == ('/sneaker') && req.get?
   return [200, {'Content-Type' => 'application/json'}, [Sneaker.all.to_json]]
     end
 
@@ -116,7 +116,15 @@ end
 
  #MODEL CREATION ROUTES FOR COLLECTION
 
- 
+ # Create Collection
+
+ if req.path == ('/sneaker') && req.post?
+  body = JSON.parse(req.body.read)
+  sneaker = Sneaker.create(body)
+  return [201, {'Content-Type' => 'application/json'}, [sneaker.to_json]]
+end
+
+
 
 # Test Route
     if req.path.match(/test/) 
