@@ -149,6 +149,19 @@ end
   end
 end
 
+  #BRAND DELETE ROUTES 
+
+ if req.path.match('/sneaker/') && req.delete?
+  id = req.path.split('/')[2]
+  begin
+    sneaker = Sneaker.find(id)
+    sneaker.destroy
+    return [200, {'Content-Type' => 'application/json'}, [{message: "Sneaker Destroyed"}.to_json]]
+  rescue
+    return [404, {'Content-Type' => 'application/json'}, [{message: "Sneaker not found"}.to_json]]
+  end
+end
+
 
 
 # Test Route
