@@ -101,6 +101,19 @@ end
   end
 end
 
+ #BRAND DELETE ROUTES 
+
+ if req.path.match('/collection/') && req.delete?
+  id = req.path.split('/')[2]
+  begin
+    collection = Collection.find(id)
+    collection.destroy
+    return [200, {'Content-Type' => 'application/json'}, [{message: "Collection Destroyed"}.to_json]]
+  rescue
+    return [404, {'Content-Type' => 'application/json'}, [{message: "Collection not found"}.to_json]]
+  end
+end
+
 # Test Route
     if req.path.match(/test/) 
       return [200, { 'Content-Type' => 'application/json' }, [ {:message => "test response!"}.to_json ]]
