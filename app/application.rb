@@ -20,7 +20,7 @@ class Application
   return [200, {'Content-Type' => 'application/json'}, [Sneaker.all.to_json]]
     end
 
-    #MODEL CREATION ROUTES
+    #MODEL CREATION ROUTES FOR BRAND
 # Create Brand
 
     if req.path == ('/brand') && req.post?
@@ -53,10 +53,7 @@ class Application
     return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Could Not Update"}.to_json]]
   end
 end
-    
-
-
-    #MODEL DELETE ROUTES 
+     #MODEL DELETE ROUTES 
 
     if req.path.match('/brand/') && req.delete?
       id = req.path.split('/')[2]
@@ -68,6 +65,17 @@ end
         return [404, {'Content-Type' => 'application/json'}, [{message: "Brand not found"}.to_json]]
       end
     end
+
+    #MODEL CREATION ROUTES FOR COLLECTION
+
+    # Create Collection
+
+    if req.path == ('/collection') && req.post?
+      body = JSON.parse(req.body.read)
+      collection = Collection.create(body)
+      return [201, {'Content-Type' => 'application/json'}, [collection.to_json]]
+    end
+
 # Test Route
     if req.path.match(/test/) 
       return [200, { 'Content-Type' => 'application/json' }, [ {:message => "test response!"}.to_json ]]
