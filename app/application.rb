@@ -124,6 +124,18 @@ end
   return [201, {'Content-Type' => 'application/json'}, [sneaker.to_json]]
 end
 
+#Show Collection
+    
+if req.path.match('/sneaker/') && req.get?
+  id = req.path.split('/') [2]
+begin
+  sneaker = Sneaker.find(id)
+  return [200, {'Content-Type' => 'application/json'},[sneaker.to_json]]
+rescue
+  return [404, {'Content-Type' => 'application/json'}, [{message: "Sneakers Not Found"}.to_json]]
+end
+end
+
 
 
 # Test Route
