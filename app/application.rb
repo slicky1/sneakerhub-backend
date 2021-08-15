@@ -41,7 +41,7 @@ class Application
       return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Not Found"}.to_json]]
     end
   end
-    #MODEL UPDATES ROUTES
+    #BRAND UPDATES ROUTES
   if req.path.match('/brand/') && req.patch?
     id =req.path.split('/') [2]
     body = JSON.parse(req.body.read)
@@ -53,7 +53,7 @@ class Application
     return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Could Not Update"}.to_json]]
   end
 end
-     #MODEL DELETE ROUTES 
+     #BRAND DELETE ROUTES 
 
     if req.path.match('/brand/') && req.delete?
       id = req.path.split('/')[2]
@@ -75,6 +75,31 @@ end
       collection = Collection.create(body)
       return [201, {'Content-Type' => 'application/json'}, [collection.to_json]]
     end
+
+     #Show Collection
+    
+     if req.path.match('/collection/') && req.get?
+      id = req.path.split('/') [2]
+    begin
+      collection = Collection.find(id)
+      return [200, {'Content-Type' => 'application/json'},[collection.to_json]]
+    rescue
+      return [404, {'Content-Type' => 'application/json'}, [{message: "collection Not Found"}.to_json]]
+    end
+  end
+
+   #COLLECTION UPDATES ROUTES
+   if req.path.match('/collection/') && req.patch?
+    id =req.path.split('/') [2]
+    body = JSON.parse(req.body.read)
+  begin
+    collection = Collection.find(id)
+    collection.update(body)
+    return [202, {'Content-Type' => 'application/json'}, [collection.to_json]]
+  rescue
+    return [404, {'Content-Type' => 'application/json'}, [{message: "Collection Could Not Update"}.to_json]]
+  end
+end
 
 # Test Route
     if req.path.match(/test/) 
