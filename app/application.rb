@@ -36,7 +36,7 @@ class Application
       id = req.path.split('/') [2]
     begin
       brand = Brand.find(id)
-      return [200, {'Content-Type' => 'application/json'},[brand.as_json(include: :collections).to_json]]
+      return [200, {'Content-Type' => 'application/json'},[ brand.as_json(include: {collections: {include: :sneakers}}).to_json]]
     rescue
       return [404, {'Content-Type' => 'application/json'}, [{message: "Brand Not Found"}.to_json]]
     end
