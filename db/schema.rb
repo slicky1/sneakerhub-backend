@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 2021_08_09_150441) do
   end
 
   create_table "sneakers", force: :cascade do |t|
-    t.string "sneaker_name"
-    t.integer "sneaker_size"
-    t.integer "sneaker_price"
-    t.string "sneaker_color"
+    t.string "name"
+    t.integer "size"
+    t.integer "price"
+    t.string "color"
     t.integer "collection_id"
     t.integer "brand_id"
     t.index ["brand_id"], name: "index_sneakers_on_brand_id"
